@@ -2,7 +2,7 @@ import axios from 'axios';
 
 //export const url = process.env.URL'https://stream-sync-production-6ee8.up.railway.app';
 //export const url = import.meta.env.VITE_BACKEND_URL.trim() || 'http://localhost:8000';
-export const url = 'http://localhost:8000';
+export const url = 'https://echo-production-1dd1.up.railway.app';
 
 console.log(localStorage.getItem('userToken'))
 
