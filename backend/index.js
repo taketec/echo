@@ -36,7 +36,8 @@ const allowed_origins =   [
   'https://stream-sync-app.onrender.com',
   'https://stream-sync-frontend-s3.s3-website.ap-south-1.amazonaws.com',
   'http://stream-sync-frontend-s3.s3-website.ap-south-1.amazonaws.com',
-  'https://deploy.dd5lzrcymgwyt.amplifyapp.com'
+  'https://deploy.dd5lzrcymgwyt.amplifyapp.com',
+  'https://echo-live.d38jdr8u5dmfe7.amplifyapp.com'
 ]
 
 const RateLimitclient = new Redis(REDIS_URL)
