@@ -6,7 +6,7 @@ const mongoDBConnect = () => {
       useUnifiedTopology: true,
       useNewUrlParser: true,
     });
-    console.log("MongoDB - Connected at " + process.env.PROD_URL);
+    console.log("MongoDB - Connected at " + "mongodb://localhost:27017/chat-app");
   } catch (error) {
     console.log("Error - MongoDB Connection " + error);
   }
