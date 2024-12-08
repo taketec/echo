@@ -5,6 +5,7 @@ import './App.css'
 import { BrowserRouter as Router, Navigate, Routes, Route } from 'react-router-dom';
 
 import Login from './pages/Login'; // Import your Login component
+import JoinRoom from './pages/JoinRoom';
 
 
 function App() {
@@ -16,6 +17,9 @@ function App() {
         <Route 
             path="/login" 
             element={<Login />} />
+        <Route 
+            path="/join-room" 
+            element={<JoinRoom />} />
 
         <Route
             exact
