@@ -83,23 +83,23 @@ const ChatRoom = () => {
   }, [messages]);
 
 return (
-  <div className="flex flex-col h-screen bg-gray-900">
+  <div className="flex flex-col h-screen ">
     {/* Chat Header */}
-    <div className="bg-gray-800 text-gray-100 py-3 px-5 text-lg font-semibold shadow-md">
+    <div className=" text-gray-100 py-3 px-5 text-lg font-semibold shadow-md">
       Chat Room: {roomId}
     </div>
 
     {/* Messages Container */}
-    <div className="flex-1 overflow-y-auto bg-gray-800 p-5">
+    <div className="flex-1 overflow-y-auto  p-5">
       {messages.map((msg, index) => (
         <div
           key={index}
-          className={`flex mb-3 ${msg.username === username.current ? 'justify-end' : 'justify-start'}`}
+          className={`flex mb-3 ${msg.username === username.current ? 'justify-end' : 'justify-start'} `}
         >
           <div
             className={`rounded-lg p-3 max-w-xs shadow-md ${
-              msg.username === username.current ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-200'
-            }`}
+              msg.username === username.current ? 'text-white' : 'bg-gray-700 text-gray-200'
+            } bg-black/64 rounded-lg shadow-lg backdrop-blur-sm`}
           >
             <p className="font-bold">{msg.username}</p>
             <p>{msg.content}</p>
@@ -113,14 +113,14 @@ return (
     </div>
 
     {/* Input Section */}
-    <div className="bg-gray-800 flex items-center px-4 py-3 shadow-md">
+    <div className=" flex items-center px-4 py-3 shadow-md">
       <input
         type="text"
         value={newMessage}
         onChange={(e) => setNewMessage(e.target.value)}
         onKeyDown={handleKeyPress} // Listen for Enter key press
         placeholder="Type a message..."
-        className="flex-1 bg-gray-700 text-gray-200 border border-gray-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="flex-1 bg-gray-700 text-gray-200 border border-gray-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 "
       />
       <button
         onClick={sendMessage}
@@ -130,7 +130,7 @@ return (
       </button>
     </div>
   </div>
-);
+  );
 };
 
 export default ChatRoom;

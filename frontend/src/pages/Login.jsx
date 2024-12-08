@@ -56,7 +56,7 @@ const Login = () => {
   });
 
   return (
-<div className="flex min-h-screen items-center justify-center bg-gray-900">
+<div className="flex min-h-screen items-center justify-center">
   <div className="w-full max-w-md p-8 space-y-3 rounded-lg bg-gray-800">
     <h1 className="text-2xl font-bold text-center text-gray-100">Login</h1>
     {errorMessage && <div className="text-red-500 dark:text-red-400 text-center">{errorMessage}</div>}
