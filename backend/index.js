@@ -18,9 +18,9 @@ const PORT = process.env.PORT || 8000
 
 let REDIS_URL = process.env.REDIS_URL
 
-if(process.env.PRODUCTION == "true"){
-  REDIS_URL = REDIS_URL+ "?family=0"
-}
+ if(process.env.PRODUCTION == "true"){
+   REDIS_URL = REDIS_URL+ "?family=0"
+ }
 
 
 mongoose.set('strictQuery', false);
