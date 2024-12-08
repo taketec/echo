@@ -1,0 +1,49 @@
+@use '_colors.sass' as c
+
+$chatList-width: 20rem
+$titleBar-height: 2rem
+
+div
+  border:1px solid white
+
+
+
+
+body
+  margin: 0px
+  padding: 0px
+  background-color: c.$background-secondary
+  color: c.$text-primary
+
+.app
+  height: 100%
+  width: 100%
+.titleBar
+  padding-left: 1rem
+  padding-right: 1rem
+  box-shadow: 0px 0px 2px 2px c.$shadow
+  display: flex
+  justify-content: space-between
+  background-color: c.$background-primary
+  height: $titleBar-height
+
+.main-container
+  display: flex
+  height: calc(100% - $titleBar-height)
+  top: $titleBar-height
+.chatList
+  width: $chatList-width
+
+.chatButton
+  background-color: c.$background-primary
+  margin-top: 2rem
+
+.chatName
+  font-size: large
+.chatParticipants
+  font-size: small
+
+
+.chatBox
+  right:0px
+  width: calc(100% - $chatList-width)
