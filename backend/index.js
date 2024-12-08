@@ -11,6 +11,7 @@ import { AuthSocket } from './middleware/auth.js';
 import { createAdapter } from "@socket.io/redis-adapter";
 import { Redis } from "ioredis";
 import { RedisStore } from 'rate-limit-redis'
+import Message from './models/message.js'; 
 
 const PORT = process.env.PORT || 8000
 
@@ -36,7 +37,7 @@ const allowed_origins =   [
   'https://deploy.dd5lzrcymgwyt.amplifyapp.com'
 ]
 
-const RateLimitclient = new Redis()
+const RateLimitclient = new Redis(REDIS_URL)
 
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
@@ -98,7 +99,7 @@ const server = app.listen(PORT, () => {
 });
 
 
-const pubClient = new Redis();
+const pubClient = new Redis(REDIS_URL);
 const subClient = pubClient.duplicate();
 
 pubClient.on("error", (err) => {
@@ -134,7 +135,7 @@ function get_time(){
 //   }, delay);
 // });
 
-const redisClient = new Redis();;
+const redisClient = new Redis(REDIS_URL);;
 
 const ROOM_TTL = 86400
 
@@ -142,6 +143,48 @@ let TOTAL_USER_COUNT = 0
 let DISCONNECTED_USER_COUNT = 0
 
 app.get('/user-count', (request, response) => response.send({"USERS IN THE APP":TOTAL_USER_COUNT,"FAILED CONNECTIONS":DISCONNECTED_USER_COUNT}))
+
+
+const transferMessages = async () => {
+  try {
+    const roomNames = await redisClient.keys('chatroom:*:messages');
+
+    for (const roomName of roomNames) {
+      const messages = await redisClient.lrange(roomName, 0, -1); 
+      const parsedMessages = messages.map(msg => JSON.parse(msg)); 
+
+      const messageDocs = parsedMessages.map(msg => ({
+        room: msg.room,
+        username: msg.username,
+        content: msg.content,
+        timestamp: new Date(msg.timestamp),
+      }));
+      
+      await Message.insertMany(messageDocs);
+
+      await redisClient.del(roomName); 
+    }
+
+    
+
+    console.log('Messages transferred to MongoDB and Redis cleared');
+
+  //   for (const room of roomNames) {
+
+  //     const mongoMessages = await Message.find({ room }).sort({ timestamp: 1 }); // Sort by timestamp ascending
+
+  //     // Log the fetched MongoDB messages
+  //     console.log('Messages fetched from MongoDB:');
+  //     mongoMessages.forEach((message, index) => {
+  //       console.log(`${index + 1}. ${message.username}: ${message.content} (${message.timestamp})`);
+  //     });
+  // } for debugging.
+  } catch (error) {
+    console.error('Error transferring messages:', error);
+  }
+};
+
+setInterval(transferMessages, 60000);
 
 
 io.use((socket, next) => AuthSocket(socket, next))
@@ -152,10 +195,19 @@ io.use((socket, next) => AuthSocket(socket, next))
     socket.on('join_room', async ({ room, username }) => {
       socket.join(room);
       console.log(`${username} joined room: ${room}`);
+      const redisMessages = await redisClient.lrange(`chatroom:${room}:messages`, 0, -1);
+      const mongoMessages = await Message.find({ room }).sort({ timestamp: 1 }); // Sort by timestamp ascending
 
-      // Fetch recent messages from Redis
-      const messages = await redisClient.lrange(`chatroom:${room}:messages`, -50, -1); // Get last 50 messages
-      socket.emit('recent_messages', messages.map(JSON.parse)); // Send to client
+      const allMessages = [
+        ...redisMessages.map(JSON.parse),  // parse Redis messages
+        ...mongoMessages                  // directly use mongo messages 
+      ];
+  
+      // sort messages by timestamp to get correct chronological order
+      allMessages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+  
+      socket.emit('recent_messages', allMessages);
+
     });
 
     // Handle sending a message
