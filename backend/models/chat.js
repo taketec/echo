@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
-//import * as argon2 from "argon2";
 
 const chatSchema = mongoose.Schema(
   {
@@ -30,22 +29,8 @@ const chatSchema = mongoose.Schema(
 //     this.password = await argon2.hash(this.password, 12);
 //   }
 //   next();
-// });
-userSchema.methods.generateAuthToken = async function () {
-  try {
-    let token = jwt.sign(
-      { id: this._id, email: this.email },
-      '(*&)(Y&OHBAHDGOIASDIUHOIAJSBDGUojhgjhaskef',
-      {
-        expiresIn: '15m',
-      }
-    );
+// })
 
-    return token;
-  } catch (error) {
-    console.log('error while generating token');
-  }
-};
 
 const chatModel = mongoose.model('Chat', chatSchema);
 export default chatModel;

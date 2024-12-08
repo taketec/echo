@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate ,useLocation } from 'react-router-dom';
-import { googleLoginUser, validUser } from '../apis/auth.js';
+import { googleLoginUser, validUser } from '../apis/auth';
 import { useGoogleLogin } from '@react-oauth/google';
 import {generate_random_string} from '../utils.js'
 
@@ -71,7 +71,7 @@ const Login = () => {
   });
 
   return (
-      <div className="flex h-screen items-center justify-center bg-gray-100 dark:bg-gray-900">
+      <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-gray-900">
         <div className="w-full max-w-md p-8 space-y-3 rounded-lg bg-white dark:bg-gray-800">
           <h1 className="text-2xl font-bold text-center text-gray-800 dark:text-gray-100">Login with Google</h1>
           {errorMessage && <div className="text-red-500 dark:text-red-400 text-center">{errorMessage}</div>}
