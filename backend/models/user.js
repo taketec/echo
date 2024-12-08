@@ -37,7 +37,7 @@ userSchema.methods.generateAuthToken = async function () {
       { id: this._id, email: this.email },
       '(*&)(Y&OHBAHDGOIASDIUHOIAJSBDGUojhgjhaskef',
       {
-        expiresIn: '15m',
+        expiresIn: '24h',
       }
     );
 
