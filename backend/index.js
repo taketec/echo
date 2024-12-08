@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 8000
 
 let REDIS_URL = process.env.REDIS_URL
 
-console.log(REDIS_URL)
+console.log("This is the redis url -------------->>>>>> ",REDIS_URL)
 
 //  if(process.env.PRODUCTION == "true"){
 //    REDIS_URL = REDIS_URL+ "?family=0"
