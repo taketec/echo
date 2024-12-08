@@ -71,21 +71,21 @@ const Login = () => {
   });
 
   return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-gray-900">
-        <div className="w-full max-w-md p-8 space-y-3 rounded-lg bg-white dark:bg-gray-800">
-          <h1 className="text-2xl font-bold text-center text-gray-800 dark:text-gray-100">Login with Google</h1>
-          {errorMessage && <div className="text-red-500 dark:text-red-400 text-center">{errorMessage}</div>}
-          <button
-            onClick={() => googleLogin()}
-            className="block w-full px-4 py-2 mt-4 text-sm font-medium text-center text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
-          >
-            Sign in with Google 🚀
-          </button>
-          <div className="flex justify-center mt-8">
-            <h1 className="text-xs text-center text-gray-600 dark:text-gray-400">Welcome to stream_sync 📺</h1>
-          </div>
-        </div>
-      </div>
+<div className="flex min-h-screen items-center justify-center bg-gray-900">
+  <div className="w-full max-w-md p-8 space-y-3 rounded-lg bg-gray-800">
+    <h1 className="text-2xl font-bold text-center text-gray-100">Login with Google</h1>
+    {errorMessage && <div className="text-red-500 dark:text-red-400 text-center">{errorMessage}</div>}
+    <button
+      onClick={() => googleLogin()}
+      className="block w-full px-4 py-2 mt-4 text-sm font-medium text-center text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+    >
+      Sign in with Google 🚀
+    </button>
+    <div className="flex justify-center mt-8">
+      <h1 className="text-xs text-center text-gray-600 text-gray-400">Welcome to ECHO 🌀🌀🌀🌀🌀</h1>
+    </div>
+  </div>
+</div>
   );
 };
 
