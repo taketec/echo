@@ -52,17 +52,26 @@ const ChatRoom = () => {
     socket_listen();
   }, [roomId, navigate]);
 
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Prevent default form submission behavior
+      sendMessage();
+    }
+  };
+
+
   const sendMessage = () => {
     if (newMessage.trim()) {
       const messageObj = {
         room: roomId,
-        username: username.current, // Assuming current user's messages should be marked as "You"
+        username: username.current,
         content: newMessage,
         timestamp: new Date().toISOString(),
       };
-      setMessages((prevMessages) => [...prevMessages, messageObj]); // Optimistic update
-      socket.emit('message', messageObj); // Send the message to the server
-      setNewMessage(''); // Clear the input field
+      setMessages((prevMessages) => [...prevMessages, messageObj]); 
+      socket.emit('message', messageObj); 
+      setNewMessage(''); 
     }
   };
 
@@ -107,11 +116,13 @@ const ChatRoom = () => {
       type="text"
       value={newMessage}
       onChange={(e) => setNewMessage(e.target.value)}
+      onKeyDown={handleKeyPress} // Listen for Enter key press
       placeholder="Type a message..."
       className="flex-1 bg-gray-700 text-gray-200 border border-gray-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
     />
     <button
       onClick={sendMessage}
+      
       className="ml-3 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
     >
       Send
