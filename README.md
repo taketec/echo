@@ -1,2 +1,2 @@
 # echo
-Highly performant chat application.
+ scalable performant chat application.
