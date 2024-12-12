@@ -57,7 +57,7 @@ const Login = () => {
 
   return (
 <div className="flex min-h-screen items-center justify-center">
-  <div className="w-full max-w-md p-8 space-y-3 rounded-lg bg-gray-800">
+  <div className="w-full max-w-md p-8 space-y-3 rounded-lg bg-black/64 shadow-lg backdrop-blur-sm border border-gray-800">
     <h1 className="text-2xl font-bold text-center text-gray-100">Login</h1>
     {errorMessage && <div className="text-red-500 dark:text-red-400 text-center">{errorMessage}</div>}
     <button
@@ -67,10 +67,11 @@ const Login = () => {
       Sign in with Google 🚀
     </button>
     <div className="flex justify-center mt-8">
-      <h1 className="text-xs text-center text-gray-600 text-gray-400">Welcome to ECHO 🌀🌀🌀🌀🌀</h1>
+      <h1 className="text-xs text-center text-gray-400">Welcome to ECHO 🌀🌀🌀</h1>
     </div>
   </div>
 </div>
+
   );
 };
 
