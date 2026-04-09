@@ -82,7 +82,7 @@ if(process.env.PRODUCTION == "true"){
   app.use(limiter)
 }
 
-
+console.log(process.env.SECRET, "--------------------SECRET--------------------------")
 //app.use(limiter)
 //xapp.options("*",cors(corsConfig))
 app.use(cors(corsConfig));

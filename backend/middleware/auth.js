@@ -4,12 +4,15 @@ import user from '../models/user.js';
 export const Auth = async (req, res, next) => {
   try {
     
-    let token = req.headers.authorization.split(' ')[0]; //when using browser this line
-      const verifiedUser = jwt.verify(token, process.env.SECRET);
+    let token = req.headers.authorization; //when using browser this line
+      console.log(req.headers.authorization)
+      console.log(token)
+
+      const verifiedUser = jwt.verify(token, "process.env.SECRET");
       console.log("verified user",verifiedUser)
       req.token = token;
       req.userId = verifiedUser.id
-
+      console.log("process.env.SECRET",">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
       // to get user data do this 
       // const rootUser = await user
       // .findOne({ _id: verifiedUser.id })
@@ -28,8 +31,8 @@ export const AuthSocket = async (socket, next) => {
     
      console.log(socket.handshake.auth.token)
     if (socket.handshake.auth.token){
-      let x = jwt.verify(socket.handshake.auth.token, process.env.SECRET);
-      if(x){next()}
+      jwt.verify(socket.handshake.auth.token, "process.env.SECRET");
+      next();
     }
     else {
       console.log("error")
@@ -38,5 +41,6 @@ export const AuthSocket = async (socket, next) => {
 
   } catch (error) {
     console.log(error);
+    next(new Error('Invalid token'));
   }
 };

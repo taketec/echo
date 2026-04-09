@@ -74,7 +74,7 @@ export const register = async (req, res) => {
   };
 
   const generateAccessToken = (clientData) => {
-    const token = jwt.sign(JSON.parse(clientData), process.env.SECRET, { expiresIn: '15m' }); 
+    const token = jwt.sign(JSON.parse(clientData), "process.env.SECRET", { expiresIn: '15m' }); 
     return token
   };
 
@@ -146,7 +146,7 @@ export const register = async (req, res) => {
           console.log("user doesnt exist")
           const password = await jwt.sign(
             { username },
-            process.env.SECRET,
+            "process.env.SECRET",
             {
               expiresIn: '24h',
             }
