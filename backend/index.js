@@ -97,7 +97,7 @@ app.get('/x-forwarded-for', (request, response) => response.send(request.headers
 app.set('trust proxy', 1)
 app.get('/ip', (request, response) => response.send(request.ip))
 
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT,"0.0.0.0", () => {
   console.log(`Server Listening at PORT - ${PORT}`);
 });
 

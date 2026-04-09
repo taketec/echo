@@ -2,7 +2,7 @@ import axios from 'axios';
 
 //export const url = process.env.URL'https://stream-sync-production-6ee8.up.railway.app';
 //export const url = import.meta.env.VITE_BACKEND_URL.trim() || 'http://localhost:8000';
-export const url = 'http://localhost:8000';
+export const url = '/api';
 
 console.log(localStorage.getItem('userToken'))
 
@@ -24,7 +24,7 @@ const API = (token) =>
 
 export const googleLoginUser = async (body) => {
   try {
-    return await axios.post(`${url}/auth/google`, body);
+    return await axios.post(`/api/auth/google`, body);
   } catch (error) {
     console.log('error in google-loginuser api');
   }
