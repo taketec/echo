@@ -1,0 +1,57 @@
+version: "3.9"
+
+services:
+  frontend:
+    image: my-frontend
+    ports:
+      - "5173:80"
+    environment:
+      VITE_BACKEND_URL: /api
+    networks:
+      - app-net
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+
+  backend:
+    image: my-backend
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      PROD_URL: mongodb://mongo:27017/echo
+      REDIS_URL: redis://redis:6379
+      SECRET: abcd
+      PORT: 8000
+    networks:
+      - app-net
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    networks:
+      - app-net
+    deploy:
+      replicas: 1
+
+  mongo:
+    image: mongo:7
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app-net
+    deploy:
+      replicas: 1
+
+networks:
+  app-net:
+    driver: overlay
+
+volumes:
+  redis_data:
+  mongo_data:
