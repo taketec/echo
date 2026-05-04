@@ -16,7 +16,7 @@ const router = express.Router();
 //router.post('/auth/login', login);
 router.post('/auth/google', googleLogin);
 router.post('/api/auth/google', googleLogin);
-router.get('/auth/valid', Auth, validUser);
+router.get('/api/auth/valid', Auth, validUser);
 //router.get('/auth/logout', Auth, logout);
 router.get('/api/user?', Auth, searchUsers);
 router.get('/api/users/:id', Auth, getUserById);
