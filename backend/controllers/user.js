@@ -69,13 +69,15 @@ export const register = async (req, res) => {
     }
   };
 
+  const JWT_SECRET = 'abcd';
+
   const generateRefreshToken = () => {
     return crypto.randomBytes(40).toString("hex"); // Generate a secure random string
   };
 
   const generateAccessToken = (clientData) => {
-    const token = jwt.sign(JSON.parse(clientData), "process.env.SECRET", { expiresIn: '15m' }); 
-    return token
+    const token = jwt.sign(JSON.parse(clientData), JWT_SECRET, { expiresIn: '15m' });
+    return token;
   };
 
   export const refreshToken = async (req, res) => {
@@ -146,7 +148,7 @@ export const register = async (req, res) => {
           console.log("user doesnt exist")
           const password = await jwt.sign(
             { username },
-            "process.env.SECRET",
+            JWT_SECRET,
             {
               expiresIn: '24h',
             }
@@ -180,10 +182,15 @@ export const register = async (req, res) => {
           return res.json({ message: 'success', token: token , refreshToken: refreshToken});
         }
       })
+      .catch(error => {
+        console.log('Error in googleLogin:', error.message);
+        return res.status(401).json({ error: 'Google authentication failed', details: error.message });
+      })
 
     }
     catch(error){
       console.log(error)
+      return res.status(500).json({ error: 'Internal server error', details: error.message });
     }
   }
   

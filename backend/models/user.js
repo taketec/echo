@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 //import * as argon2 from "argon2";
 
+const JWT_SECRET = 'abcd';
+
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -35,7 +37,7 @@ userSchema.methods.generateAuthToken = async function () {
   try {
     let token = jwt.sign(
       { id: this._id, email: this.email },
-      '(*&)(Y&OHBAHDGOIASDIUHOIAJSBDGUojhgjhaskef',
+      JWT_SECRET,
       {
         expiresIn: '24h',
       }

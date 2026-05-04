@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import user from '../models/user.js';
 
+const JWT_SECRET = 'abcd';
+
 export const Auth = async (req, res, next) => {
   try {
     
@@ -8,7 +10,7 @@ export const Auth = async (req, res, next) => {
       console.log(req.headers.authorization)
       console.log(token)
 
-      const verifiedUser = jwt.verify(token, "process.env.SECRET");
+      const verifiedUser = jwt.verify(token, JWT_SECRET);
       console.log("verified user",verifiedUser)
       req.token = token;
       req.userId = verifiedUser.id
@@ -31,7 +33,7 @@ export const AuthSocket = async (socket, next) => {
     
      console.log(socket.handshake.auth.token)
     if (socket.handshake.auth.token){
-      jwt.verify(socket.handshake.auth.token, "process.env.SECRET");
+      jwt.verify(socket.handshake.auth.token, JWT_SECRET);
       next();
     }
     else {
